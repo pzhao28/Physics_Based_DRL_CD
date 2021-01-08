@@ -122,13 +122,18 @@ def collect_trajectories(envs, policy, tmax=200, nrand=5):
     for _ in range(nrand):
         fr1, re1, _ = envs.step(np.random.choice([UP, RIGHT, LEFT],n))
         fr2, re2, _ = envs.step([3]*n)
+    fr_current = fr2
+    fr1, re1, _ = envs.step(np.random.choice([UP, RIGHT, LEFT], n))
+    fr2, re2, _ = envs.step([3] * n)
+    fr_next = fr2
     
     for t in range(tmax):
         # prepare the input
         # preprocess_batch properly converts two frames into 
         # shape (n, 2, 80, 80), the proper input for the policy
         # this is required when building CNN with pytorch
-        batch_input = preprocess_single(fr1)
+        batch_input = preprocess_batch([fr_current,fr_next])
+        fr_current = fr_next
         
         # probs will only be used as the pi_old
         # no gradient propagation is needed
@@ -144,6 +149,7 @@ def collect_trajectories(envs, policy, tmax=200, nrand=5):
         fr1, re1, is_done = envs.step(actions)
         fr2, re2, is_done = envs.step([3]*n) # intruder moves 2 steps with half speed while own moves 1 step with full speed.
         reward = re1 + re2
+        fr_next = fr2
         #reward[np.nonzero(reward)]=-1
         # store the result
         state_list.append(batch_input)
@@ -263,7 +269,7 @@ class Policy(nn.Module):
         super(Policy, self).__init__()
         # 80x80x2 to 38x38x4
         # 2 channel from the stacked frame
-        self.conv1 = nn.Conv2d(1, 4, kernel_size=6, stride=2, bias=False)
+        self.conv1 = nn.Conv2d(2, 4, kernel_size=6, stride=2, bias=False)
         # 38x38x4 to 9x9x32
         self.conv2 = nn.Conv2d(4, 16, kernel_size=6, stride=4)
         self.size=9*9*16
