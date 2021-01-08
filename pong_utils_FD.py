@@ -132,7 +132,8 @@ def collect_trajectories(envs, policy, tmax=200, nrand=5):
         # preprocess_batch properly converts two frames into 
         # shape (n, 2, 80, 80), the proper input for the policy
         # this is required when building CNN with pytorch
-        batch_input = preprocess_batch([fr_current,fr_next])
+        fr_FD = fr_next - fr_current
+        batch_input = preprocess_single(fr_FD)
         fr_current = fr_next
         
         # probs will only be used as the pi_old
@@ -269,7 +270,7 @@ class Policy(nn.Module):
         super(Policy, self).__init__()
         # 80x80x2 to 38x38x4
         # 2 channel from the stacked frame
-        self.conv1 = nn.Conv2d(2, 4, kernel_size=6, stride=2, bias=False)
+        self.conv1 = nn.Conv2d(1, 4, kernel_size=6, stride=2, bias=False)
         # 38x38x4 to 9x9x32
         self.conv2 = nn.Conv2d(4, 16, kernel_size=6, stride=4)
         self.size=9*9*16
