@@ -6,14 +6,14 @@ import torch
 
 pygame.init()
 
-max_x = 80
-max_y = 80
+max_x = 160
+max_y = 160
 own_x = max_x/2
 own_y = max_y/2
 #own_y = max_y
 #scale = max_x / 160
 scale = 1
-vw = 0.5 # velocity weight
+vw = 1 # velocity weight
 time_step = 1
 win = pygame.display.set_mode((max_x, max_y),depth=8)
 pygame.display.set_caption('Collision Avoidance System')

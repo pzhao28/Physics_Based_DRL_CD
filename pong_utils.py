@@ -261,12 +261,12 @@ class Policy(nn.Module):
 
     def __init__(self):
         super(Policy, self).__init__()
-        # 80x80x2 to 38x38x4
-        # 2 channel from the stacked frame
+        # 80x80x1 to 38x38x4
         self.conv1 = nn.Conv2d(1, 4, kernel_size=6, stride=2, bias=False)
         # 38x38x4 to 9x9x32
         self.conv2 = nn.Conv2d(4, 16, kernel_size=6, stride=4)
-        self.size=9*9*16
+        #self.size = 9 * 9 * 16 # for 80x80x1
+        self.size=19*19*16 # for 160x160x1
         
         # two fully connected layer
         self.fc1 = nn.Linear(self.size, 256)
