@@ -266,7 +266,8 @@ class Policy(nn.Module):
         # 38x38x4 to 9x9x32
         self.conv2 = nn.Conv2d(4, 16, kernel_size=6, stride=4)
         #self.size = 9 * 9 * 16 # for 80x80x1
-        self.size=19*19*16 # for 160x160x1
+        #self.size=19*19*16 # for 160x160x1
+        self.size = 4*4*16
         
         # two fully connected layer
         self.fc1 = nn.Linear(self.size, 256)

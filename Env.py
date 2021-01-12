@@ -6,8 +6,8 @@ import torch
 
 pygame.init()
 
-max_x = 160
-max_y = 160
+max_x = 40
+max_y = 40
 own_x = max_x/2
 own_y = max_y/2
 #own_y = max_y
@@ -182,6 +182,7 @@ class env():
             self.numberLoop = 0
             #self.N = np.random.choice(np.append(rd.randint(1,5), 100))
             self.N = rd.randint(1,5)/vw
+            self.N = int(self.N*4)
             #self.N = 10
             self.aircrafts.append(intruder())
             #self.aircrafts.append(intruder())
