@@ -143,7 +143,7 @@ def collect_trajectories(envs, policy, tmax=200, nrand=5):
         # we take one action and skip game forward
         fr1, re1, is_done = envs.step(actions)
         fr2, re2, is_done = envs.step([3]*n) # intruder moves 2 steps with half speed while own moves 1 step with full speed.
-        reward = np.argmax([re1,re2], axis=0)
+        reward = re1 + re2
         #reward[np.nonzero(reward)]=-1
         # store the result
         state_list.append(batch_input)
