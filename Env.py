@@ -13,6 +13,7 @@ own_y = max_y/2
 #own_y = max_y
 #scale = max_x / 160
 scale = 1
+vw = 0.5 # velocity weight
 time_step = 1
 win = pygame.display.set_mode((max_x, max_y),depth=8)
 pygame.display.set_caption('Collision Avoidance System')
@@ -51,7 +52,7 @@ def random_inner_point():
     return point
 
 class intruder(object):
-    def __init__(self, vel_range = np.arange(1.5,2.5,0.1)*scale, radius = 5*scale, color = (255, 0, 0)): #radius=5*scale means 5 nautical miles; vel = 8 nautical miles per minitue
+    def __init__(self, vel_range = np.arange(1.5,2.5,0.1)*vw, radius = 5*scale, color = (255, 0, 0)): #radius=5*scale means 5 nautical miles; vel = 8 nautical miles per minitue
         #self.moving = moving # action is a vector (v_x, v_y), indicates the velocity of the own aircraft
         self.vel = np.random.choice(vel_range)
         #self.vel = 4
@@ -138,7 +139,7 @@ class env():
         self.state = []
         self.next_state = []
         self.theta = -90 * np.pi/180
-        self.own_vel = 4
+        self.own_vel = 4*vw
         self.color = (255, 0, 0)
         self.det_x = 40
         self.det_y = 10000#destnation = (40,5)
@@ -151,17 +152,17 @@ class env():
         reward = 0
         moving = [0,0]
         if action == 0: # up (default)
-            moving = [0,-5]
+            moving = np.array([0,-5])*vw
             #if self.det_x == 40:
             #    reward+=0.001
         elif action == 1:
             #moving = [5*np.cos(8*np.pi/9),-5*np.sin(8*np.pi/9)] # right up
-            moving = np.array([4,-3])
+            moving = np.array([4,-3])*vw
             #if self.det_x > 40:
             #    reward+=0.0001
         elif action == 2:
             #moving = [-5*np.cos(8*np.pi/9),-5*np.sin(8*np.pi/9)] # left up
-            moving = np.array([-4,-3])
+            moving = np.array([-4,-3])*vw
             #if self.det_x < 40:
             #    reward+=0.0001
 

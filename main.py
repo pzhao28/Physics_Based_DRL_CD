@@ -1,3 +1,3 @@
-import pong_PPO_FD as pong
-for i in range(1,5):
+import pong_PPO as pong
+for i in range(1,10):
     pong.main(i)

@@ -56,7 +56,7 @@ def clipped_surrogate(policy, old_probs, states, actions, rewards,
 
 def main(loop):
     beta = .01
-    tmax = 200
+    tmax = int(200*Env.scale)
     SGD_epoch = 4
     epsilon = 0.1
     episode = 500
@@ -109,5 +109,5 @@ def main(loop):
 
     env = envs.ps[0]
     mean_rewards = np.array(mean_rewards)
-    np.savetxt('data_discrete_{}.csv'.format(loop), mean_rewards, newline = '\n')
+    np.savetxt('data_{}.csv'.format(loop), mean_rewards, newline = '\n')
 
