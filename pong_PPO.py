@@ -56,7 +56,7 @@ def clipped_surrogate(policy, old_probs, states, actions, rewards,
 
 def main(loop):
     beta = .01
-    tmax = int(200*Env.scale)
+    tmax = int(200*Env.vw)
     SGD_epoch = 4
     epsilon = 0.1
     episode = 500
