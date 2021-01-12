@@ -100,7 +100,7 @@ class intruder(object):
             self.T2 = (T2x, T2y)
 
     def draw(self, win):
-        pygame.draw.polygon(win,(200,0,0), [(max_x/2, max_y/2), self.T1, self.T2] + self.vector)
+        pygame.draw.polygon(win,(200,0,0), [(max_x/2, max_y/2), self.T1, self.T2] + self.vector*2)
         #pygame.draw.circle(win, self.color, (int(round(self.x)), int(round(self.y))), self.radius)
 
 
