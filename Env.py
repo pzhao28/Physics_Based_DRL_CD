@@ -13,7 +13,7 @@ own_y = max_y/2
 #own_y = max_y
 #scale = max_x / 160
 scale = 1
-vw = 1 # velocity weight
+vw = 0.5 # velocity weight
 time_step = 1
 win = pygame.display.set_mode((max_x, max_y),depth=8)
 pygame.display.set_caption('Collision Avoidance System')
@@ -181,7 +181,7 @@ class env():
         if self.numberLoop > self.N:
             self.numberLoop = 0
             #self.N = np.random.choice(np.append(rd.randint(1,5), 100))
-            self.N = rd.randint(1,5)
+            self.N = rd.randint(1,5)/vw
             #self.N = 10
             self.aircrafts.append(intruder())
             #self.aircrafts.append(intruder())
