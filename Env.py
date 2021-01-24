@@ -143,6 +143,7 @@ class env():
         self.color = (255, 0, 0)
         self.det_x = 40
         self.det_y = 10000#destnation = (40,5)
+        self.indicator = 0 # to reduce generating aircraft
 
     def reset(self):
         self.__init__()
@@ -182,9 +183,13 @@ class env():
             self.numberLoop = 0
             #self.N = np.random.choice(np.append(rd.randint(1,5), 100))
             self.N = rd.randint(1,5)/vw
-            self.N = int(self.N*4)
             #self.N = 10
-            self.aircrafts.append(intruder())
+            if self.indicator%2 == 0:
+                self.aircrafts.append(intruder())
+                self.indicator += 1 # if max_x=max_y=40, half the frequency of generating aircraft
+                                    # if max_x=max_y=80, use "self.aircrafts.append(intruder())" once
+                                    # if max_x=max_y=160, double "self.aircrafts.append(intruder())"
+
             #self.aircrafts.append(intruder())
             #self.aircrafts.append(intruder())
 

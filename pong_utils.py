@@ -282,4 +282,3 @@ class Policy(nn.Module):
         x = x.view(-1,self.size)
         x = F.relu(self.fc1(x))
         return self.sig(self.fc2(x))
-    
